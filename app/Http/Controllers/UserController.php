@@ -24,11 +24,10 @@ class UserController extends Controller
          ]);
  
          $user = User::create($data);               
-
+                    
             Mail::to($user->email, $user->name)
-                ->send(new SendWelcomeUser($user->name, 'Eliana Morillo'));
-        
- 
+                ->send(new SendWelcomeUser($user->name,'Eliana'));
+          
          return $user;
         } catch (\Exception $exception) {
          return $this->error($exception->getMessage(), Response::HTTP_BAD_REQUEST);
