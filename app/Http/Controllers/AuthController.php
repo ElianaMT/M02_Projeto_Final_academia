@@ -38,9 +38,9 @@ class AuthController extends Controller
             $token = $request->user()->createToken('simple');
 
             return $this->response('Autorizado', 200, [
-                'token' => $token->plainTextToken             
+                'token' => $token->plainTextToken, 
+                'name' => $request->user()->name, // Adiciona o nome de usuario a resposta            
                 
-
             ]);
             
         } catch (\Exception $exception) {
