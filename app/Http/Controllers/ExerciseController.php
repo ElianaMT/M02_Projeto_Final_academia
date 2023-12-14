@@ -17,6 +17,7 @@ class ExerciseController extends Controller
 
             $exercises = Exercise::query()
                 ->where('user_id', $userId)
+                ->orderBy('description')
                 ->get();
 
             return $exercises;
