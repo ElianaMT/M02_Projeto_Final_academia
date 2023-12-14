@@ -18,10 +18,14 @@ class SendWelcomeUser extends Mailable
      */
 
     public $userName;
+    public $planDescription;
+    public $planLimit;
    
-    public function __construct($userName)
+    public function __construct($userName,$planDescription, $planLimit)
     {
         $this->userName = $userName;
+        $this->planDescription= $planDescription;
+        $this->planLimit = $planLimit;
     }
 
     /**
@@ -30,7 +34,7 @@ class SendWelcomeUser extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Boas vindas Academia TrainSys',
+            subject: 'Boas vindas Academia TRAINSYS',
         );
     }
 

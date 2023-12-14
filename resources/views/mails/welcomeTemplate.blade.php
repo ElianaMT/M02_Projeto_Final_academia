@@ -47,8 +47,8 @@
     <p>Olá, {{ $userName}}!</p> 
     
     <div class="plano-info">
-        <p><strong>Tipo de Plano:</strong> {{ $userName}}</p>
-        <p><strong>Limite de Alunos:</strong> {{ $userName}}</p>
+        <p><strong>Tipo de Plano:</strong> {{ $planDescription}}</p>
+        <p><strong>Limite de Alunos:</strong> {{$planLimit > 0 ? $planLimit : 'ILIMITADO'}}</p>
     </div>
 </div>
 
