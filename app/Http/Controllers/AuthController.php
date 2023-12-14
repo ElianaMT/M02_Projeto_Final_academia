@@ -39,8 +39,8 @@ class AuthController extends Controller
 
             return $this->response('Autorizado', 200, [
                 'token' => $token->plainTextToken, 
-                'name' => $request->user()->name, // Adiciona o nome de usuario a resposta            
-                
+                'name' => $request->user()->name, // Adiciona o nome de usuario na resposta            
+                'expiration_token' => "1 dia"
             ]);
             
         } catch (\Exception $exception) {
