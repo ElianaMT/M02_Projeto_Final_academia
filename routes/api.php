@@ -18,3 +18,4 @@ Route::post('users', [UserController::class, 'store']);
 Route::post('login', [AuthController::class, 'store']);
 
 Route::post('exercises', [ExerciseController::class, 'store']);
+Route::get('exercises', [ExerciseController::class, 'index']);
