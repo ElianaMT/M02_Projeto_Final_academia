@@ -10,6 +10,23 @@ use Symfony\Component\HttpFoundation\Response;
 
 class StudentController extends Controller
 {
+
+    public function index(Request $request)
+    {
+        try {
+            $user = Auth::user();
+
+            $students = Student::where('user_id', $user->id)
+                ->orderBy('name')
+                ->get();
+
+            return $students;
+        } catch (Exception $exception) {
+            return $this->error($exception->getMessage(), Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+
     public function store(Request $request)
     {
         try {
