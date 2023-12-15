@@ -14,6 +14,7 @@ class StudentController extends Controller
     public function index(Request $request)
     {
         try {
+            // Obtenho usuario autenticado
             $user = Auth::user();
 
             $students = Student::where('user_id', $user->id)
