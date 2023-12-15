@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Exercise;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class ExerciseController extends Controller
@@ -34,9 +35,16 @@ class ExerciseController extends Controller
                 'description' => 'required|string|max:255|unique:exercises',                
             ]);
 
-            $data = $request->all();
+             // Obtenho usuario autenticado
+             $user = Auth::user();
 
-            $exercise = Exercise::create($data);
+              // Cria novo exercicio y asigna user_id
+            $exercise = new Exercise([
+                'description' => $request->input('description'),
+                'user_id' => $user->id,
+            ]);
+
+            $exercise->save();
 
             return $exercise;
         } catch (Exception $exception) {
