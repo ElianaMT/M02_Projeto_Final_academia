@@ -32,7 +32,7 @@ class ExerciseController extends Controller
 
 
             $request->validate([
-                'description' => 'required|string|max:255|unique:exercises'
+                'description' => 'required|string|max:255|unique:exercises',                
             ]);
 
             $data = $request->all();
@@ -43,5 +43,16 @@ class ExerciseController extends Controller
         } catch (Exception $exception) {
             return $this->error($exception->getMessage(), Response::HTTP_BAD_REQUEST);
         }
+    }
+
+    public function destroy($id){
+        $exercise = Exercise::find($id);
+
+        if(!$exercise) return $this->error('Dado não encontrado', Response::HTTP_NOT_FOUND);
+
+        $exercise->delete();
+
+        return $this->response('',Response::HTTP_NO_CONTENT);
+
     }
 }
