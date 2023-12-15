@@ -36,6 +36,7 @@ class StudentController extends Controller
             $student = new Student([
                 'user_id' => $user->id,
                                 
+                'id' => $request->input('id'),
                 'name' => $request->input('name'),
                 'email' => $request->input('email'),
                 'date_birth' => $request->input('date_birth'),
