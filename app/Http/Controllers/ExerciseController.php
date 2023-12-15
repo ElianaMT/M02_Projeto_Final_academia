@@ -15,10 +15,9 @@ class ExerciseController extends Controller
     public function index(Request $request)
     {
         try {
-            $userId = $request->input('user_id');
+            $user = Auth::user();            
 
-            $exercises = Exercise::query()
-                ->where('user_id', $userId)
+            $exercises = Exercise::where('user_id', $user->id)
                 ->orderBy('description')
                 ->get();
 
