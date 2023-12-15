@@ -13,14 +13,15 @@ class Student extends Model
         'email',
         'date_birth',
         'cpf',
+        'contact',
         'cep',
         'street',
         'state',
         'neighborhood',
         'city',
-        'number',
         'complement',
-        'contact',
-        'user_id'
+        'number'
     ];
+
+    protected $hidden = ['user_id'];
 }
