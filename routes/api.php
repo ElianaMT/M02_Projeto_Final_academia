@@ -7,8 +7,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->group(function () {
     // rotas privadas
-
-
+Route::post('exercises', [ExerciseController::class, 'store']);
+Route::get('exercises', [ExerciseController::class, 'index']);
+Route::delete('exercises/{id}', [ExerciseController::class, 'destroy']);
 
 });
 
@@ -16,6 +17,4 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::post('users', [UserController::class, 'store']);
 Route::post('login', [AuthController::class, 'store']);
 
-Route::post('exercises', [ExerciseController::class, 'store']);
-Route::get('exercises', [ExerciseController::class, 'index']);
-Route::delete('exercises/{id}', [ExerciseController::class, 'destroy']);
+
