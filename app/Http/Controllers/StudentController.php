@@ -78,4 +78,31 @@ class StudentController extends Controller
             return $this->error($exception->getMessage(), Response::HTTP_BAD_REQUEST); //status code 409
         }
     }
+
+    public function destroy($id)
+    {
+        try {
+            // Obtenho usuario autenticado
+            $user = Auth::user();
+
+            // Encontra o exercicio por id
+            $student = Student::find($id);
+
+            // Verifica si exercicio existe
+            if (!$student) {
+                return $this->error('Dado não encontrado', Response::HTTP_NOT_FOUND);
+            }
+
+            // Verifica si usuario autenticado e igual a user_id
+            if ($user->id !== $student->user_id) {
+                return $this->error('Nao tem permisos para eliminar este exercicio', Response::HTTP_FORBIDDEN);
+            }
+
+            $student->delete();
+
+            return $this->response('Estudante deletado', Response::HTTP_NO_CONTENT);
+        } catch (Exception $exception) {
+            return $this->error($exception->getMessage(), Response::HTTP_BAD_REQUEST);
+        }
+    }
 }
