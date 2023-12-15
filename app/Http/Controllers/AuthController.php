@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Profile;
-use App\Models\User;
 use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,7 +24,7 @@ class AuthController extends Controller
 
             //mensagem code 401
 
-            $authenticated = Auth::attempt($data);
+            $authenticated = Auth::attempt($data); //Verifica si usuario existe
 
             if (!$authenticated) {
                 return $this->error('Não autorizado. Credenciais incorretas', Response::HTTP_UNAUTHORIZED);
@@ -35,6 +33,7 @@ class AuthController extends Controller
             //gera token acesso
             $request->user()->tokens()->delete();
 
+            
             $token = $request->user()->createToken('simple');
 
             return $this->response('Autorizado', 200, [

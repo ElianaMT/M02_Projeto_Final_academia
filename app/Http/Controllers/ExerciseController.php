@@ -30,7 +30,6 @@ class ExerciseController extends Controller
     {
         try {
 
-
             $request->validate([
                 'description' => 'required|string|max:255|unique:exercises',                
             ]);
