@@ -13,7 +13,20 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id')->nullable();            
+            $table->string('name',255)->nullable();
+            $table->string('email',255)->unique()->nullable();
+            $table->date('date_birth')->nullable();
+            $table->string('cpf',10)->nullable()->unique();
+            $table->string('contact',20)->nullable();           
+            $table->string('city',50)->nullable();
+            $table->string('neighborhood',50)->nullable();
+            $table->string('number',30)->nullable();
+            $table->string('street',30)->nullable();
+            $table->string('state',2)->nullable();
+            $table->string('cep',20)->nullable();
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
