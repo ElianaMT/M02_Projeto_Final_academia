@@ -20,9 +20,9 @@ class Student extends Model
         'neighborhood',
         'city',
         'complement',
-        'number',
-        'user_id'         
+        'number'
+                 
                 
     ];
-    protected $hidden = ['created_at','updated_at'];
+    protected $hidden = ['created_at','updated_at','user_id'];
 }
