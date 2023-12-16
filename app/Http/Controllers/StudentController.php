@@ -95,7 +95,7 @@ class StudentController extends Controller
 
             // Verifica si usuario autenticado e igual a user_id
             if ($user->id !== $student->user_id) {
-                return $this->error('Nao tem permisos para eliminar este exercicio', Response::HTTP_FORBIDDEN);
+                return $this->error('Nao tem permisos para eliminar este estudante', Response::HTTP_FORBIDDEN);
             }
 
             $student->delete();
