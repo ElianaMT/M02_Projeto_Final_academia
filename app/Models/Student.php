@@ -24,5 +24,5 @@ class Student extends Model
         'user_id'         
                 
     ];
-    protected $hidden = ['created_at','updated_at','user_id'];
+    protected $hidden = ['created_at','updated_at','user_id','deleted_at'];
 }
