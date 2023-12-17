@@ -21,6 +21,8 @@ class StudentController extends Controller
 
             $students = Student::query();
 
+            $students = Student::where('user_id', $user->id);
+
             if ($request->has('name') && !empty($params['name'])) {
                 $students->where('name', $params['name']);
             }
