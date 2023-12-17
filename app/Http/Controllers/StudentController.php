@@ -15,42 +15,28 @@ class StudentController extends Controller
     {
         try {
             //Obtenho usuario autenticado
-           //$user = Auth::user();
+            $user = Auth::user();
 
-           $params=$request->query();
+            $params = $request->query();
 
-           $students = Student::query();
+            $students = Student::query();
 
-           if($request->has('name')){
-            $students->where('name', $params['name']);
-           }
-           
-            //Var_dump($request->query());
+            if ($request->has('name') && !empty($params['name'])) {
+                $students->where('name', $params['name']);
+            }
 
-            // Obtenho usuario autenticado
-           // $user = Auth::user();
+            if ($request->has('email') && !empty($params['email'])) {
+                $students->where('email', $params['email']);
+            }
 
-             // Obtenho o valor da pesquisa desde a solicitude
-           // $query = $request->input('query');
+            if ($request->has('cpf') && !empty($params['cpf'])) {
+                $students->where('cpf', $params['cpf']);
+            }
+            // Ordenado por o nome
+            $students->orderBy('name', 'asc');
 
-           //consulta na tabela students
-           // $students = Student::query();
 
-           // if ($query) {
-              //  $students->where('name', 'ilike', '%' . $query . '%')
-                //    ->orWhere('cpf', 'ilike', '%' . $query . '%')
-                 //   ->orWhere('email', 'ilike', '%' . $query . '%');
-            //}
-            
-
-           // Ordenado por o nome
-      // $students->orderBy('name', 'asc');
-       
-
-       //Resultado de la consulta
-       // $results = $students->get();
-
-        return $students->get();
+            return $students->get();
         } catch (Exception $exception) {
             return $this->error($exception->getMessage(), Response::HTTP_BAD_REQUEST);
         }
@@ -82,7 +68,7 @@ class StudentController extends Controller
             // Cria novo estudante y asigna al user_id
             $student = new Student([
                 'user_id' => $user->id,
-                                
+
                 'id' => $request->input('id'),
                 'name' => $request->input('name'),
                 'email' => $request->input('email'),
@@ -96,7 +82,7 @@ class StudentController extends Controller
                 'city' => $request->input('city'),
                 'complement' => $request->input('complement'),
                 'number' => $request->input('number'),
-                
+
 
             ]);
 
