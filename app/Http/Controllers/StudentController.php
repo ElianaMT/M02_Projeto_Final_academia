@@ -24,15 +24,15 @@ class StudentController extends Controller
             $students = Student::where('user_id', $user->id);
 
             if ($request->has('name') && !empty($params['name'])) {
-                $students->where('name', $params['name']);
+                $students->where('name', 'ilike', '%' . $params['name'] . '%');//filtra en cualquier lugar de la string , en matyusculas y minisculas
             }
 
             if ($request->has('email') && !empty($params['email'])) {
-                $students->where('email', $params['email']);
+                $students->where('email', 'ilike', '%' . $params['email'] . '%');
             }
 
             if ($request->has('cpf') && !empty($params['cpf'])) {
-                $students->where('cpf', $params['cpf']);
+                $students->where('cpf', 'ilike', '%' . $params['cpf'] . '%');
             }
             // Ordenado por o nome
             $students->orderBy('name', 'asc');
