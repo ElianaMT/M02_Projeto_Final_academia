@@ -14,14 +14,43 @@ class StudentController extends Controller
     public function index(Request $request)
     {
         try {
+            //Obtenho usuario autenticado
+           //$user = Auth::user();
+
+           $params=$request->query();
+
+           $students = Student::query();
+
+           if($request->has('name')){
+            $students->where('name', $params['name']);
+           }
+           
+            //Var_dump($request->query());
+
             // Obtenho usuario autenticado
-            $user = Auth::user();
+           // $user = Auth::user();
 
-            $students = Student::where('user_id', $user->id)
-                ->orderBy('name')
-                ->get();
+             // Obtenho o valor da pesquisa desde a solicitude
+           // $query = $request->input('query');
 
-            return $students;
+           //consulta na tabela students
+           // $students = Student::query();
+
+           // if ($query) {
+              //  $students->where('name', 'ilike', '%' . $query . '%')
+                //    ->orWhere('cpf', 'ilike', '%' . $query . '%')
+                 //   ->orWhere('email', 'ilike', '%' . $query . '%');
+            //}
+            
+
+           // Ordenado por o nome
+      // $students->orderBy('name', 'asc');
+       
+
+       //Resultado de la consulta
+       // $results = $students->get();
+
+        return $students->get();
         } catch (Exception $exception) {
             return $this->error($exception->getMessage(), Response::HTTP_BAD_REQUEST);
         }
