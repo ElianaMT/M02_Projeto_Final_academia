@@ -19,7 +19,7 @@ Route::delete('students/{id}', [StudentController::class, 'destroy']);
 Route:: put('students/{id}', [StudentController::class,'update']);
 
 Route::post('workouts', [WorkoutController::class, 'store']);
-
+Route::get('workouts', [WorkoutController::class, 'index']);
 
 
 
