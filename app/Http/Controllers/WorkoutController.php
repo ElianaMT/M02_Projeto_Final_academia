@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Student;
 use App\Models\Workout;
 use Exception;
 use Illuminate\Http\Request;
@@ -13,40 +14,47 @@ class WorkoutController extends Controller
     public function store(Request $request)
     {
         try {
-            // Obtenho usuario autenticado
+            // Obtén usuario autenticado
             $user = Auth::user();
 
             $request->validate([
-                'repetitions' => 'string|date_format:Y-m-d|required',
-                'weight' => 'required|numeric|between:0,9999.99', // deberia ter hasta 2 decimals
-                'break_time' => 'int|required',
-                'day' => 'string|in:SEGUNDA,TERCA,QUARTA,QUINTA,SEXTA,SÁBADO,DOMINGO',
-                'observations' => 'string|nullable',
-                'time' => 'string|max:10|requiered|unique:exercises',
-                
+                'student_id' => 'required|exists:students,id,user_id,' . $user->id,
+                'exercise_id' => 'required|exists:exercises,id',
+                'repetitions' => 'required|string',
+                'weight' => 'required|decimal:2', // Hasta 2 decimales
+                'break_time' => 'required|int',
+                'day' => 'required|string|in:SEGUNDA,TERCA,QUARTA,QUINTA,SEXTA,SÁBADO,DOMINGO',
+                'observations' => 'nullable|string',
+                'time' => 'required|string|max:10|unique:workouts', 
             ]);
 
-
-            // Cria novo treino y asigna al user_id
-            $workout = new Workout([
-                'user_id' => $user->id,
-                'student_id' => $user->id,
-                'exercise_id' => $user->id,
-
-                'id' => $request->input('id'),
-                'repetitions' => $request->input('repetitions'),
-                'weight' => $request->input('weight'),
-                'break_time' => $request->input('break_time'),
-                'day' => $request->input('day'),
-                'observations' => $request->input('observations'),
-                'time' => $request->input('time'),  
-            ]);
-
+            $workout = new Workout($request->all());
+            $workout->user_id = $user->id;
             $workout->save();
+            
 
-            return $workout;
-        } catch (Exception $exception) {
-            return $this->error($exception->getMessage(), Response::HTTP_BAD_REQUEST); //status code 409
+             // Encontra o estudante relacionado com o treino
+             $student = Student::find($workout->student_id);
+
+             // Verifica si o estudante existe
+             if (!$student) {
+                 return $this->error('Estudante não encontrado', Response::HTTP_NOT_FOUND);
+             }
+ 
+             // Verifica si usuario autenticado es igual al user_id del estudiante
+             if ($user->id !== $student->user_id) {
+                 return $this->error('Não tem permissão para visualizar este treino', Response::HTTP_FORBIDDEN);
+             }
+ 
+            
+             $responseData = [
+                'workout' => $workout,
+                'student' => $student, //password oculto no estudante
+            ];
+
+            return $responseData;
+        } catch (\Exception $exception) {
+            return $this->error($exception->getMessage(), Response::HTTP_BAD_REQUEST);
         }
     }
 }
