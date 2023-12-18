@@ -12,6 +12,24 @@ use Symfony\Component\HttpFoundation\Response;
 
 class WorkoutController extends Controller
 {
+
+    public function index(Request $request)
+    {
+        try {
+            $user = Auth::user();
+    
+            $workouts = Workout::where('user_id', $user->id)
+                ->orderBy('student_id')
+                ->orderBy('day')
+                ->get()
+                ->groupBy('student_id','day');
+    
+            return $workouts;
+        } catch (Exception $exception) {
+            return $this->error($exception->getMessage(), Response::HTTP_BAD_REQUEST);
+        }
+    }
+
     public function store(Request $request)
     {
         try {
