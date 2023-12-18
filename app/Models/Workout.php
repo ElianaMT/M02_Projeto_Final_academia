@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Workout extends Model
 {
+
+   
+
     use HasFactory;
     protected $fillable = [
         'repetitions',
