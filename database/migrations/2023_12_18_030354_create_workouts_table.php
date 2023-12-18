@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('student_id')->nullable();            
             $table->unsignedBigInteger('exercise_id')->nullable();  
+            $table->unsignedBigInteger('user_id')->nullable();  
             $table->date('repetitions')->nullable();
             $table->float('weight')->nullable();
             $table->integer('break_time')->nullable();
@@ -24,6 +25,7 @@ return new class extends Migration
             $table->timestamps();
             $table->foreign('student_id')->references('id')->on('students');
             $table->foreign('exercise_id')->references('id')->on('exercises');
+            $table->foreign('user_id')->references('id')->on('users');
             
         });
     }
