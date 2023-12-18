@@ -13,7 +13,18 @@ return new class extends Migration
     {
         Schema::create('workouts', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('student_id')->nullable();            
+            $table->unsignedBigInteger('exercise_id')->nullable();  
+            $table->date('repetitions')->nullable();
+            $table->float('weight')->nullable();
+            $table->integer('break_time')->nullable();
+            $table->enum('day', ['SEGUNDA', 'TERCA', 'QUARTA', 'QUINTA','SEXTA','SÁBADO','DOMINGO']);
+            $table->text('observations')->nullable(); 
+            $table->string('time',10)->nullable()->unique();            
             $table->timestamps();
+            $table->foreign('student_id')->references('id')->on('students');
+            $table->foreign('exercise_id')->references('id')->on('exercises');
+            
         });
     }
 
