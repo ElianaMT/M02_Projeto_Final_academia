@@ -7,6 +7,7 @@ use App\Models\Workout;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 use Symfony\Component\HttpFoundation\Response;
 
 class WorkoutController extends Controller
@@ -23,7 +24,15 @@ class WorkoutController extends Controller
                 'repetitions' => 'required|string',
                 'weight' => 'required|decimal:2', // Hasta 2 decimales
                 'break_time' => 'required|int',
-                'day' => 'required|string|in:SEGUNDA,TERCA,QUARTA,QUINTA,SEXTA,SÁBADO,DOMINGO',
+                'day' => [
+                    'required',
+                    'string',
+                    Rule::in(['SEGUNDA', 'TERCA', 'QUARTA', 'QUINTA', 'SEXTA', 'SÁBADO', 'DOMINGO']),
+                    Rule::unique('workouts')->where(function ($query) use ($user) {
+                        return $query->where('user_id', $user->id);
+                    }),
+                ],
+
                 'observations' => 'nullable|string',
                 'time' => 'required|string|max:10|unique:workouts', 
             ]);
