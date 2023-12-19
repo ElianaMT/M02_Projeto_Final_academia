@@ -52,7 +52,7 @@ class WorkoutController extends Controller
                 ],
 
                 'observations' => 'nullable|string',
-                'time' => 'required|string|max:10|unique:workouts', 
+                'time' => 'required|string|max:10', 
             ]);
 
             $workout = new Workout($request->all());
