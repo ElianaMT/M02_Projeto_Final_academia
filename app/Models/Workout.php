@@ -16,15 +16,16 @@ class Workout extends Model
         'day',
         'observations',
         'time',
-        'user_id',   
-        'student_id',   
+        'user_id', 
         'exercise_id' 
                 
     ];
     
-    protected $hidden = ['created_at','updated_at'];
+    protected $hidden = ['created_at','updated_at','student_id'];
 
     public function student(){
         return $this->hasOne(Student::class,'id', 'student_id');
     }
+
+     
 }
