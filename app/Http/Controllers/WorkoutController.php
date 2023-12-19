@@ -15,8 +15,9 @@ class WorkoutController extends Controller
     public function store(Request $request)
     {
         try {
-            // Obtén usuario autenticado
+            // Obtenho usuario autenticado
             $user = Auth::user();
+            $data= $request->all();
 
             $request->validate([
                 'student_id' => 'required|exists:students,id,user_id,' . $user->id,
@@ -28,20 +29,19 @@ class WorkoutController extends Controller
                     'required',
                     'string',
                     Rule::in(['SEGUNDA', 'TERCA', 'QUARTA', 'QUINTA', 'SEXTA', 'SÁBADO', 'DOMINGO']),
-                    Rule::unique('workouts')->where(function ($query) use ($user) {
-                        return $query->where('user_id', $user->id);
+                    Rule::unique('workouts')->where(function ($query) use ($user,$data) {
+                        return $query->where('user_id', $user->id)
+                        ->where('student_id',$data['student_id']);
                     }),
                 ],
 
                 'observations' => 'nullable|string',
-                'time' => 'required|string|max:10|unique:workouts', 
+                'time' => 'required|string|max:10', 
             ]);
 
-            $workout = new Workout($request->all());
-            $workout->user_id = $user->id;
-            $workout->save();
+            $workout = Workout::create([...$request->all(),'user_id'=>$user->id]);
             
-
+           
              // Encontra o estudante relacionado com o treino
              $student = Student::find($workout->student_id);
 
@@ -57,8 +57,7 @@ class WorkoutController extends Controller
  
             
              $responseData = [
-                'workout' => $workout,
-                'student' => $student, //password oculto no estudante
+                'workout' => $workout
             ];
 
             return $responseData;
