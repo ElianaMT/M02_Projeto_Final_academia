@@ -17,14 +17,32 @@ class WorkoutController extends Controller
     {
         try {
             $user = Auth::user();
+            
+            //pega os daddos que foram enviados via query
+            $filters = $request->query(); 
+
+            //inicializa uma query
+            $workouts = Workout::query();
+            
+            //verifica o filtro
+            if($request->has('student_id')&&!empty($filters['student_id'])){ // mostra todos os estudantes por id asi no body eu nao coloque nada
+                $workouts->where('student_id', 'ilike', '%'.$filters['student_id'].'%');  //filtra a tabela workouts por student_id        
+            }
+
+            if($request->has('day')&&!empty($filters['day'])){ 
+                $workouts->where('day', 'ilike', '%'.$filters['day'].'%');      
+            }
+            
+            //retorna resultado
+            $columnOrder = $request->has('order')&&!empty($filters['order'])? $filters['order'] : 'student_id';
+            $workouts = $workouts->orderBy($columnOrder)->get();
+
+        // Agrupa los resultados por día y estudiante
+        $groupWorkouts = $workouts->groupBy(['student_id','day']);
+
+        return $groupWorkouts;            
     
-            $workouts = Workout::where('user_id', $user->id)
-                ->orderBy('student_id')
-                ->orderBy('day')
-                ->get()
-                ->groupBy('student_id','day');
-    
-            return $workouts;
+           
         } catch (Exception $exception) {
             return $this->error($exception->getMessage(), Response::HTTP_BAD_REQUEST);
         }
