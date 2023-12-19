@@ -6,9 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Workout extends Model
-{
-
-   
+{   
 
     use HasFactory;
     protected $fillable = [
@@ -25,4 +23,8 @@ class Workout extends Model
     ];
     
     protected $hidden = ['created_at','updated_at'];
+
+    public function student(){
+        return $this->hasOne(Student::class,'id', 'student_id');
+    }
 }
