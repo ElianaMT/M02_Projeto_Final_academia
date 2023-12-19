@@ -22,7 +22,19 @@ class WorkoutController extends Controller
             $filters = $request->query(); 
 
             //inicializa uma query
-            $workouts = Workout::query();
+            $workouts = Workout::query()
+            //traz tudas as colunas
+            //->with('student')
+            //traz solo certas colunas
+            ->select(
+                'workouts.student_id',
+                'workouts.day as workouts',
+                'workouts.repetitions as repetitions'
+                )
+            ->with(['student'=> function($query){
+                $query->select('id','name');
+                          
+            }]);
             
             //verifica o filtro
             if($request->has('student_id')&&!empty($filters['student_id'])){ // mostra todos os estudantes por id asi no body eu nao coloque nada
@@ -37,10 +49,9 @@ class WorkoutController extends Controller
             $columnOrder = $request->has('order')&&!empty($filters['order'])? $filters['order'] : 'student_id';
             $workouts = $workouts->orderBy($columnOrder)->get();
 
-        // Agrupa los resultados por día y estudiante
-        $groupWorkouts = $workouts->groupBy(['student_id','day']);
+        
 
-        return $groupWorkouts;            
+        return $workouts;            
     
            
         } catch (Exception $exception) {
