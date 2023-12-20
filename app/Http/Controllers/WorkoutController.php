@@ -39,6 +39,7 @@ class WorkoutController extends Controller
             foreach ($workouts as $workout) {
                 $day = ($workout->day);
                 $exercise_id = $workout->exercise_id;
+                $exercise_description = $workout->exercise->description;
                 $repetitions = $workout->repetitions;
                 $weight = $workout->weight;
                 $break_time = $workout->break_time;
@@ -48,6 +49,7 @@ class WorkoutController extends Controller
                
                 // Adiciona as propiedades ao dia correspondente
                 $results[$day]['exercise_id'] = $exercise_id;
+                $results[$day]['exercise_description'] = $exercise_description;
                 $results[$day]['repetitions'] = $repetitions;                
                 $results[$day]['weight'] = $weight;
                 $results[$day]['break_time'] = $break_time;
