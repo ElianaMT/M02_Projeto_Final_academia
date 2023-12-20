@@ -17,43 +17,52 @@ class WorkoutController extends Controller
     {
         try {
             $user = Auth::user();
-            
-            //pega os daddos que foram enviados via query
-            $filters = $request->query(); 
+
+            //pega os dados que foram enviados via query
+            $filters = $request->query();
 
             //inicializa uma query
-            $workouts = Workout::query()
-            //traz tudas as colunas
-            //->with('student')
-            //traz solo certas colunas
-            ->select(
-                'workouts.student_id',
-                'workouts.day as workouts',
-                'workouts.repetitions as repetitions'
-                )
-            ->with(['student'=> function($query){
-                $query->select('id','name');
-                          
-            }]);
-            
+            $workouts = Workout::query();
+
             //verifica o filtro
-            if($request->has('student_id')&&!empty($filters['student_id'])){ // mostra todos os estudantes por id asi no body eu nao coloque nada
-                $workouts->where('student_id', 'ilike', '%'.$filters['student_id'].'%');  //filtra a tabela workouts por student_id        
+            if ($request->has('student_id') && !empty($filters['student_id'])) { // mostra todos os estudantes por id asi no body eu nao coloque nada
+                $workouts->where('student_id', $filters['student_id']);  //filtra a tabela workouts por student_id        
             }
 
-            if($request->has('day')&&!empty($filters['day'])){ 
-                $workouts->where('day', 'ilike', '%'.$filters['day'].'%');      
-            }
-            
             //retorna resultado
-            $columnOrder = $request->has('order')&&!empty($filters['order'])? $filters['order'] : 'student_id';
+            $columnOrder = $request->has('order') && !empty($filters['order']) ? $filters['order'] : 'student_id';
             $workouts = $workouts->orderBy($columnOrder)->get();
 
-        
 
-        return $workouts;            
-    
-           
+            $results = [];
+
+            foreach ($workouts as $workout) {
+                $day = ($workout->day);
+                $exercise_id = $workout->exercise_id;
+                $repetitions = $workout->repetitions;
+                $weight = $workout->weight;
+                $break_time = $workout->break_time;
+                $observations = $workout->observations;
+                $time = $workout->time;
+
+               
+                // Adiciona as propiedades ao dia correspondente
+                $results[$day]['exercise_id'] = $exercise_id;
+                $results[$day]['repetitions'] = $repetitions;                
+                $results[$day]['weight'] = $weight;
+                $results[$day]['break_time'] = $break_time;
+                $results[$day]['observations'] = $observations;
+                $results[$day]['time'] = $time;
+            }
+
+            // Array final
+            $finalResponse = [
+                'student_id' => $workouts[0]->student->id,
+                'student_name' => $workouts[0]->student->name,
+                'workouts' => $results
+            ];
+
+            return $finalResponse;
         } catch (Exception $exception) {
             return $this->error($exception->getMessage(), Response::HTTP_BAD_REQUEST);
         }
@@ -64,7 +73,7 @@ class WorkoutController extends Controller
         try {
             // Obtenho usuario autenticado
             $user = Auth::user();
-            $data= $request->all();
+            $data = $request->all();
 
             $request->validate([
                 'student_id' => 'required|exists:students,id,user_id,' . $user->id,
@@ -76,34 +85,34 @@ class WorkoutController extends Controller
                     'required',
                     'string',
                     Rule::in(['SEGUNDA', 'TERCA', 'QUARTA', 'QUINTA', 'SEXTA', 'SÁBADO', 'DOMINGO']),
-                    Rule::unique('workouts')->where(function ($query) use ($user,$data) {
+                    Rule::unique('workouts')->where(function ($query) use ($user, $data) {
                         return $query->where('user_id', $user->id)
-                        ->where('student_id',$data['student_id']);
+                            ->where('student_id', $data['student_id']);
                     }),
                 ],
 
                 'observations' => 'nullable|string',
-                'time' => 'required|string|max:10', 
+                'time' => 'required|string|max:10',
             ]);
 
-            $workout = Workout::create([...$request->all(),'user_id'=>$user->id]);
-            
-           
-             // Encontra o estudante relacionado com o treino
-             $student = Student::find($workout->student_id);
+            $workout = Workout::create([...$request->all(), 'user_id' => $user->id]);
 
-             // Verifica si o estudante existe
-             if (!$student) {
-                 return $this->error('Estudante não encontrado', Response::HTTP_NOT_FOUND);
-             }
- 
-             // Verifica si usuario autenticado es igual al user_id del estudiante
-             if ($user->id !== $student->user_id) {
-                 return $this->error('Não tem permissão para visualizar este treino', Response::HTTP_FORBIDDEN);
-             }
- 
-            
-             $responseData = [
+
+            // Encontra o estudante relacionado com o treino
+            $student = Student::find($workout->student_id);
+
+            // Verifica si o estudante existe
+            if (!$student) {
+                return $this->error('Estudante não encontrado', Response::HTTP_NOT_FOUND);
+            }
+
+            // Verifica si usuario autenticado es igual al user_id del estudiante
+            if ($user->id !== $student->user_id) {
+                return $this->error('Não tem permissão para visualizar este treino', Response::HTTP_FORBIDDEN);
+            }
+
+
+            $responseData = [
                 'workout' => $workout
             ];
 

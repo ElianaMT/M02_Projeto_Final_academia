@@ -17,11 +17,12 @@ class Workout extends Model
         'observations',
         'time',
         'user_id', 
-        'exercise_id' 
+        'exercise_id',
+        'student_id'
                 
     ];
     
-    protected $hidden = ['created_at','updated_at','student_id'];
+    protected $hidden = ['created_at','updated_at'];
 
     public function student(){
         return $this->hasOne(Student::class,'id', 'student_id');
