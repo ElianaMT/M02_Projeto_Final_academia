@@ -25,7 +25,20 @@ class StudentController extends Controller
             return $this->error('Dado não encontrado', Response::HTTP_NOT_FOUND);
         }
            
-            return $student;
+            return ['id'=>$id,
+            'name'=>$student->name,
+            'email'=>$student->email,
+            'date_birth'=>$student->date_birth,
+            'cpf'=>$student->cpf,
+            'address'=>[
+            'cep'=>$student->cep,
+            'street'=>$student->street,
+            'province'=>$student->state,
+            'neighboarhood'=>$student->neighboarhood,
+            'city'=>$student->city,
+            'complement'=>$student->complement,
+            'number'=>$student->number,
+        ]];
         } catch (Exception $exception) {
             return $this->error($exception->getMessage(), Response::HTTP_BAD_REQUEST);
         }
