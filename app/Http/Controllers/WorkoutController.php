@@ -57,11 +57,23 @@ class WorkoutController extends Controller
                 $results[$day]['time'] = $time;
             }
 
+            // Ordena os resultados por dias de la semana
+        $diasOrdenados = ['SEGUNDA', 'TERCA', 'QUARTA', 'QUINTA', 'SEXTA', 'SÁBADO', 'DOMINGO'];
+        $resultadosOrdenados = [];
+
+        foreach ($diasOrdenados as $dia) {
+            // Verifica se há dados para o dia atual
+            if (isset($results[$dia])) {
+                // Adiciona os dados ao novo array $resultadosOrdenados
+                $resultadosOrdenados[$dia] = $results[$dia];
+            }
+        }
+
             // Array final
             $finalResponse = [
                 'student_id' => $workouts[0]->student->id,
                 'student_name' => $workouts[0]->student->name,
-                'workouts' => $results
+                'workouts' => $resultadosOrdenados
             ];
 
             return $finalResponse;
