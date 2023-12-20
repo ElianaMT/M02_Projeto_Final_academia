@@ -27,6 +27,9 @@ class Workout extends Model
     public function student(){
         return $this->hasOne(Student::class,'id', 'student_id');
     }
+    public function exercise(){
+        return $this->hasOne(Exercise::class,'id', 'exercise_id');
+    }
 
      
 }
