@@ -13,6 +13,7 @@ Route::post('exercises', [ExerciseController::class, 'store']);
 Route::get('exercises', [ExerciseController::class, 'index']);
 Route::delete('exercises/{id}', [ExerciseController::class, 'destroy']);
 
+Route::get('students/{id}', [StudentController::class, 'show']);
 Route::post('students', [StudentController::class, 'store']);
 Route::get('students', [StudentController::class, 'index']);
 Route::delete('students/{id}', [StudentController::class, 'destroy']);
