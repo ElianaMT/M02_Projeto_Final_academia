@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ExerciseController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TreinoReportController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WorkoutController;
 use Illuminate\Support\Facades\Route;
@@ -22,7 +23,7 @@ Route:: put('students/{id}', [StudentController::class,'update']);
 Route::post('workouts', [WorkoutController::class, 'store']);
 Route::get('workouts', [WorkoutController::class, 'index']);
 
-
+Route::get('workouts/export', [TreinoReportController::class, 'export']);
 
 });
 
