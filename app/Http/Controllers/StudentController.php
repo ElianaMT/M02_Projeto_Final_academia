@@ -11,6 +11,23 @@ use Symfony\Component\HttpFoundation\Response;
 class StudentController extends Controller
 {
 
+    public function show($id)
+    {
+        try {
+            // Obtenho usuario autenticado
+            $user = Auth::user();
+                        
+            // Pesquiso o estudante por id
+            $student = Student::find($id);
+
+         
+           
+            return $student;
+        } catch (Exception $exception) {
+            return $this->error($exception->getMessage(), Response::HTTP_BAD_REQUEST);
+        }
+    }
+
     public function index(Request $request)
     {
         try {
