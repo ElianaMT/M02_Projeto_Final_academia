@@ -20,7 +20,10 @@ class StudentController extends Controller
             // Pesquiso o estudante por id
             $student = Student::find($id);
 
-         
+         // Verifica si estudante existe
+         if (!$student) {
+            return $this->error('Dado não encontrado', Response::HTTP_NOT_FOUND);
+        }
            
             return $student;
         } catch (Exception $exception) {
