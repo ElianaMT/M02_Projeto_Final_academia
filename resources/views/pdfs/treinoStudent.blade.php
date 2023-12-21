@@ -12,7 +12,8 @@
             font-family: 'Arial', sans-serif;
             color: #333;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         .header {
@@ -37,12 +38,18 @@
         p {
             margin: 0;
         }
+
+        .footer {
+            margin-top: auto;
+            text-align: center;
+            background-color: #f0f0f0; /* Light gray background */
+            padding: 10px;
+        }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>Plan de Treinos - {{ $name }}</h1>
-        <p class="company-name">TRAINSYS COMPANY</p>
+        <h1>Plan de Treino - {{ $name }}</h1>
     </div>
 
     @foreach($workouts as $workout)
@@ -58,5 +65,9 @@
             </ul>
         </div>
     @endforeach
+
+    <div class="footer">
+        TRAINSYS | Latacunga - Ecuador | Contacto: 0999711678
+    </div>
 </body>
 </html>
