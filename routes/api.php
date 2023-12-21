@@ -24,6 +24,8 @@ Route:: put('students/{id}', [StudentController::class,'update']);
 Route::post('workouts', [WorkoutController::class, 'store']);
 Route::get('workouts', [WorkoutController::class, 'index']);
 
+Route::get('dashboard', [UserController::class, 'index']);
+
 });
 
 // rota pública
