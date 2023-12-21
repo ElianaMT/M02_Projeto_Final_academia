@@ -18,16 +18,32 @@ class TreinoReportController extends Controller
 
         $name = $student->name;
         $workouts = $student->workouts;
-        //$exercises = $student->workouts->exercises;
+        $workoutDomingo = $workouts->filter(function ($workout) {
+            return strtoupper($workout->day) === 'DOMINGO';
+        });
+        
+        // Iterar sobre os workouts do dia domingo
+        foreach ($workoutDomingo as $workout) {
+            $workout_id = $workout->id;
+            $exercise_id = $workout->exercise_id;
+            $repetitions = $workout->repetitions;
+            $weight = $workout->weight;
+            $break_time = $workout->break_time;
+            $day = $workout->day;
+            $observations = $workout->observations;
+            $time = $workout->time;
+        }
+       
 
         $pdf = Pdf::loadView('pdfs.treinoStudent',[
             'name' => $name,
             'workouts' => $workouts,
-           // 'description' => $name
+            'DOMINGO'=>$workoutDomingo,
+            
         ]);
 
-        //return $student;
+        return $student;
 
-        return $pdf->stream(('treino.pdf'));
+       //return $pdf->stream(('treino.pdf'));
     }
 }

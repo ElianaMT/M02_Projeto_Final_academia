@@ -7,7 +7,16 @@
     <title>Document</title>
 </head>
 <body>
-    {{$name}}
-    {{$workouts}}
+    <head>{{$name}}</head>
+    <br>
+    <p> {{$workouts}}</p>
+    <br>  
+    <p> {{$DOMINGO}}</p>
+
+
+
+    
+    
+    
 </body>
 </html>
