@@ -14,6 +14,7 @@ Route::post('exercises', [ExerciseController::class, 'store']);
 Route::get('exercises', [ExerciseController::class, 'index']);
 Route::delete('exercises/{id}', [ExerciseController::class, 'destroy']);
 
+Route::get('students/treino', [TreinoReportController::class, 'showTreino']);
 Route::get('students/{id}', [StudentController::class, 'show']);
 Route::post('students', [StudentController::class, 'store']);
 Route::get('students', [StudentController::class, 'index']);
@@ -22,8 +23,6 @@ Route:: put('students/{id}', [StudentController::class,'update']);
 
 Route::post('workouts', [WorkoutController::class, 'store']);
 Route::get('workouts', [WorkoutController::class, 'index']);
-
-Route::get('workouts/export', [TreinoReportController::class, 'export']);
 
 });
 
