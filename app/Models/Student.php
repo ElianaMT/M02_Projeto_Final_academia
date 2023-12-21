@@ -30,4 +30,12 @@ class Student extends Model
     ];
     
     protected $hidden = ['created_at','updated_at','user_id','deleted_at'];
+    
+    public function workout(){
+        return $this->hasOne(Workout::class,'id', 'workout_id');
+    }
+    public function exercise(){
+        return $this->hasOne(Exercise::class,'id', 'exercise_id');
+    }
+ 
 }
