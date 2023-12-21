@@ -8,5 +8,6 @@
 </head>
 <body>
     {{$name}}
+    {{$workouts}}
 </body>
 </html>
