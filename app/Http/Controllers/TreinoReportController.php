@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class TreinoReportController extends Controller
@@ -12,6 +13,12 @@ class TreinoReportController extends Controller
 
         $student = Student::find($id);
 
-        return $student;
+        $name = $student->name;
+
+        $pdf = Pdf::loadView('pdfs.treinoStudent',[
+            'name' => $name
+        ]);
+
+        return $pdf->stream(('treino.pdf'));
     }
 }
