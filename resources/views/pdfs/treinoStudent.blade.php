@@ -17,7 +17,7 @@
         }
 
         .header {
-            text-align: left;
+            text-align: center;
         }
 
         h1 {
