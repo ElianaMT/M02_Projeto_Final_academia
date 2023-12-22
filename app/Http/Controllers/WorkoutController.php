@@ -92,7 +92,7 @@ class WorkoutController extends Controller
             $request->validate([
                 'student_id' => 'required|exists:students,id,user_id,' . $user->id,
                 'exercise_id' => 'required|exists:exercises,id',
-                'repetitions' => 'required|string',
+                'repetitions' => 'required|int',
                 'weight' => 'required|decimal:2', // Hasta 2 decimales
                 'break_time' => 'required|int',
                 'day' => [
