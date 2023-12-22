@@ -49,10 +49,17 @@ class UserController extends Controller
 
             $registered_students = Student::where('user_id', $request->user()->id)->count();
             $registered_exercises = Exercise::where('user_id', $request->user()->id)->count();
+            $current_user_plan = Plan::find($user->plan_id);
+            //Quantidade de alunos permitidos por o plano
+            $plan_limit = Plan::find($user->plan_limit);
+            //Quantidade de cadastros restantes
+            $remaining_students= ( $registered_students - $plan_limit );
 
             $finalResponse =[
                 'registered_students' => $registered_students,
                 'registered_exercises' => $registered_exercises,
+                'current_user_plan' => $current_user_plan->description,
+                'remaining_students' => $remaining_students,
             ];
 
             return $finalResponse;
