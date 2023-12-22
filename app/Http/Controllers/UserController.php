@@ -53,7 +53,7 @@ class UserController extends Controller
             //Quantidade de alunos permitidos por o plano
             $plan_limit = Plan::find($user->plan_limit);
             //Quantidade de cadastros restantes
-            $remaining_students= ( $registered_students - $plan_limit );
+            $remaining_students = max(0, $plan_limit - $registered_students);
 
             $finalResponse =[
                 'registered_students' => $registered_students,
