@@ -51,7 +51,7 @@ class UserController extends Controller
             $registered_exercises = Exercise::where('user_id', $request->user()->id)->count();
             $current_user_plan = Plan::find($user->plan_id);
             //Quantidade de alunos permitidos por o plano
-            $plan_limit = Plan::find($user->plan_limit);
+            $plan_limit = $current_user_plan->limit;
             //Quantidade de cadastros restantes
             $remaining_students = max(0, $plan_limit - $registered_students);
 
