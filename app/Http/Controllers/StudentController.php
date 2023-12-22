@@ -86,17 +86,17 @@ class StudentController extends Controller
 
             $request->validate([
                 'name' => 'string|required|max:255',
-                'email' => 'string|required|max:255|unique:students',
+                'email' => 'string|email|required|max:255|unique:students',
                 'date_birth' => 'string|date_format:Y-m-d|required',
-                'cpf' => 'string|required|max:255|unique:students',
-                'contact' => 'string|required|max:20|unique:students',
-                'cep' => 'string|required|max:20',
-                'street' => 'string|required|max:30',
-                'state' => 'string|required|max:2',
-                'neighborhood' => 'string|required|max:50',
-                'city' => 'string|required|max:50',
+                'cpf' => 'string|required|size:11|unique:students',
+                'contact' => 'string|required|max:20',
+                'cep' => 'string|max:20',
+                'street' => 'string|max:30',
+                'state' => 'string|max:2',
+                'neighborhood' => 'string|max:50',
+                'city' => 'string|max:50',
                 'complement' => 'string|max:50',
-                'number' => 'string|required|max:30',
+                'number' => 'string|max:30',
             ]);
 
 
