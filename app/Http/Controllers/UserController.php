@@ -21,7 +21,7 @@ class UserController extends Controller
  
          $request->validate([
              'name' => 'string|max:255|required',
-             'email' => 'string|email|max:255|required|unique:users',
+             'email' => 'email|required|unique:users',
              'date_birth' => 'string|date_format:Y-m-d|required',
              'cpf' => 'string|required|max:14|unique:users',             
              'password'=> 'string|required|min:8|max:32',
