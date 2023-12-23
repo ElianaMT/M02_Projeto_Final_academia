@@ -55,13 +55,13 @@ class UserController extends Controller
             //Quantidade de cadastros restantes
             $remaining_students = ($plan_limit - $registered_students);
             //resposta para plano ouro
-            $responseText = ($remaining_students === 0) ? 'Ilimitado' : $remaining_students;
+            $responseText = ($remaining_students === 0) ? 'Ilimitado' :  $remaining_students;
 
 
             $finalResponse =[
                 'registered_students' => $registered_students,
                 'registered_exercises' => $registered_exercises,
-                'current_user_plan' => $current_user_plan->description,
+                'current_user_plan' => 'Plano '. $current_user_plan->description,
                 'remaining_students' => $responseText,
             ];
 
