@@ -12,8 +12,16 @@ class TreinoReportController extends Controller
     
         $id = $request->input('id');
 
-        $student = Student::
-        with('workouts')
+        $student = Student::with(['workouts' => function ($query) {
+            $query->orderByRaw("CASE WHEN day = 'SEGUNDA' THEN 1
+                                      WHEN day = 'TERCA' THEN 2
+                                      WHEN day = 'QUARTA' THEN 3
+                                      WHEN day = 'QUINTA' THEN 4
+                                      WHEN day = 'SEXTA' THEN 5
+                                      WHEN day = 'SÁBADO' THEN 6
+                                      WHEN day = 'DOMINGO' THEN 7
+                                 END");
+        }])
         ->with('exercises')
         ->find($id);
 
