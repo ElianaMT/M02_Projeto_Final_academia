@@ -168,10 +168,10 @@ class StudentController extends Controller
             // Valida os dados do request-corpo
             $request->validate([
                 'name' => 'string|nullable|max:255',
-                'email' => 'string|nullable|max:255|unique:students,email,' . $id,
+                'email' => 'string|nullable|email|max:255|unique:students,email,' . $id,
                 'date_birth' => 'string|nullable|date_format:Y-m-d',
-                'cpf' => 'string|nullable|max:255|unique:students,cpf,' . $id,
-                'contact' => 'string|required|max:20|unique:students,contact,' . $id,
+                'cpf' => 'string|nullable|size:14|regex:/^\d{3}\.\d{3}\.\d{3}-\d{2}$/|unique:students,cpf,' . $id,
+                'contact' => 'string|required|max:20',
                 'cep' => 'string|nullable',
                 'street' => 'string|nullable',
                 'state' => 'string|nullable',
@@ -181,8 +181,7 @@ class StudentController extends Controller
                 'number' => 'string|nullable',
             ], [
                 'email.unique' => 'O e-mail já está sendo usado',
-                'cpf.unique' => 'O CPF já está sendo usado.',
-                'contact.unique' => 'O contato já está sendo usado',
+                'cpf.unique' => 'O CPF já está sendo usado',
             ]);
 
             // Encontra o estudante por id
@@ -200,6 +199,9 @@ class StudentController extends Controller
 
             // Actualiza os dados do estudante
             $student->update($data);
+            
+            //hidden id
+            $student->makeHidden('id');
 
             return $student;
         } catch (Exception $exception) {
