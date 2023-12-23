@@ -31,6 +31,8 @@ class Student extends Model
     
     protected $hidden = ['created_at','updated_at','user_id','deleted_at'];
     
+
+    //Relações para pdf
     public function workouts()
     {
         return $this->hasMany(Workout::class, 'student_id');
