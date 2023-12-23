@@ -21,19 +21,13 @@
             text-align: center;
         }
 
-        h1 {
-            color: #FFA500;
-            /* Orange */
-        }
-
+        h1,
         h2 {
-            color: #FFA500;
-            /* Orange */
+            color: #FFA500; /* Orange */
         }
 
         div {
-            border: 1px solid #FFA500;
-            /* Orange border */
+            border: 1px solid #FFA500; /* Orange border */
             padding: 15px;
             margin-bottom: 20px;
             border-radius: 10px;
@@ -43,11 +37,27 @@
             margin: 0;
         }
 
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2; /* Light gray background */
+        }
+
         .footer {
             margin-top: auto;
             text-align: center;
-            background-color: #f0f0f0;
-            /* Light gray background */
+            background-color: #f0f0f0; /* Light gray background */
             padding: 10px;
         }
     </style>
@@ -58,46 +68,72 @@
         <h1>Plan de Treino - {{ $name }}</h1>
     </div>
 
-      
-
-        @foreach ($workouts->groupBy('day') as $day => $workoutsForDay)
-    <div>
-        <h2>{{ $day }}</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Day</th>
-                    <th>Exercise</th>
-                    <th>Repetitions</th>
-                    <th>Weight</th>
-                    <th>Break Time</th>
-                    <th>Observations</th>
-                    <th>Time</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($workoutsForDay as $workout)
+    @foreach ($workouts->groupBy('day') as $day => $workoutsForDay)
+        <div>
+            <h2>{{ $day }}</h2>
+            <table>
+                <thead>
                     <tr>
-                        <td>{{ $workout->day }}</td>
-                        <td>{{ $workout->exercise_id }}</td>
-                        <td>{{ $workout->repetitions }}</td>
-                        <td>{{ $workout->weight }} </td>
-                        <td>{{ $workout->break_time }}</td>
-                        <td>{{ $workout->observations }}</td>
-                        <td>{{ $workout->time }}</td>
+                        <th>Day</th>
+                        <th>Exercise</th>
+                        <th>Repetitions</th>
+                        <th>Weight</th>
+                        <th>Break Time</th>
+                        <th>Observations</th>
+                        <th>Time</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach ($workoutsForDay as $workout)
+                        <tr>
+                            <td>{{ $workout->day }}</td>
+                            <td>{{ $workout->exercise_id }}</td>
+                            <td>{{ $workout->repetitions }}</td>
+                            <td>{{ $workout->weight }} </td>
+                            <td>{{ $workout->break_time }}</td>
+                            <td>{{ $workout->observations }}</td>
+                            <td>{{ $workout->time }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    @endforeach
+
+    <div class="header">
+        <h1>RESUMO DE TREINOS</h1>
     </div>
-@endforeach
 
 
-
-        
+    <table>
+        <thead>
+            <tr>
+                <th>Day</th>
+                <th>Exercise</th>
+                <th>Repetitions</th>
+                <th>Weight</th>
+                <th>Break Time</th>
+                <th>Observations</th>
+                <th>Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($workouts as $workout)
+                <tr>
+                    <td>{{ $workout->day }}</td>
+                    <td>{{ $workout->exercise_id }}</td>
+                    <td>{{ $workout->repetitions }}</td>
+                    <td>{{ $workout->weight }} </td>
+                    <td>{{ $workout->break_time }}</td>
+                    <td>{{ $workout->observations }}</td>
+                    <td>{{ $workout->time }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 
     <div class="footer">
-        TRAINSYS | Latacunga - Ecuador | Contacto: 0999711678
+        TRAINSYS COMPANY| Latacunga - Ecuador | Contacto: 0999711678
     </div>
 </body>
 
