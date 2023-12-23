@@ -24,6 +24,8 @@ class Workout extends Model
     
     protected $hidden = ['created_at','updated_at'];
 
+    //Relações para listar treinos
+
     public function student(){
         return $this->hasOne(Student::class,'id', 'student_id');
     }
