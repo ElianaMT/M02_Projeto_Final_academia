@@ -88,7 +88,7 @@ class StudentController extends Controller
                 'name' => 'string|required|max:255',
                 'email' => 'string|email|required|max:255|unique:students',
                 'date_birth' => 'string|date_format:Y-m-d|required',
-                'cpf' => 'string|required|size:11|unique:students',
+                'cpf' => 'string|required|size:14|regex:/^\d{3}\.\d{3}\.\d{3}-\d{2}$/|unique:students',
                 'contact' => 'string|required|max:20',
                 'cep' => 'string|max:20',
                 'street' => 'string|max:30',
