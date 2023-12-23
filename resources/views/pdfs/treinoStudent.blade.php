@@ -54,6 +54,13 @@
             background-color: #f2f2f2; /* Light gray background */
         }
 
+        .contenedor-imagen {
+            text-align: center;
+            border: 1px solid #FFA500; 
+            background-color: #070707;
+            
+        }
+
         .footer {
             margin-top: auto;
             text-align: center;
@@ -64,7 +71,8 @@
 </head>
 
 <body>
-    <div class="header">
+    <div class="header">      
+        
         <h1>Plan de Treino - {{ $name }}</h1>
     </div>
 
@@ -100,10 +108,15 @@
         </div>
     @endforeach
 
-    <div class="header">
-        <h1>RESUMO DE TREINOS</h1>
+    <div class="contenedor-imagen">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEHkImFMNgKLDTwiig8SS2keKWbWTvhbB7-X41JcDXCkPrUrkzU_hZ5Owgkv1AESgr0ps&usqp=CAU" 
+    alt="Imagem de Treino" 
+    style="max-width: 100%; height: auto;">  
     </div>
 
+    <div class="header">        
+     <h1>RESUMO DE TREINOS</h1>
+    </div>
 
     <table>
         <thead>
