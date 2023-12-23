@@ -19,8 +19,11 @@ class ExerciseController extends Controller
 
             $exercises = Exercise::where('user_id', $user->id)
                 ->orderBy('description')
-                ->get();
-
+                ->get()
+                ->each(function ($exercise) {
+                    $exercise->makeHidden('user_id');
+                });
+                
             return $exercises;
         } catch (Exception $exception) {
             return $this->error($exception->getMessage(), Response::HTTP_BAD_REQUEST);
