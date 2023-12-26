@@ -95,7 +95,7 @@
                     @foreach ($workoutsForDay as $workout)
                         <tr>
                             <td>{{ $workout->day }}</td>
-                            <td>{{ $workout->exercise_id }}</td>
+                            <td>{{ $workout->exercise->description }}</td>
                             <td>{{ $workout->repetitions }}</td>
                             <td>{{ $workout->weight }} </td>
                             <td>{{ $workout->break_time }}</td>
@@ -134,7 +134,7 @@
             @foreach ($workouts as $workout)
                 <tr>
                     <td>{{ $workout->day }}</td>
-                    <td>{{ $workout->exercise_id }}</td>
+                    <td>{{ $workout->exercise->description}}</td>
                     <td>{{ $workout->repetitions }}</td>
                     <td>{{ $workout->weight }} </td>
                     <td>{{ $workout->break_time }}</td>

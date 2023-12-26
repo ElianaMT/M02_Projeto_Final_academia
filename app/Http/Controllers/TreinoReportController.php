@@ -36,6 +36,7 @@ class TreinoReportController extends Controller
             $groupedWorkouts[$day][] = [
                 'workout_id' => $workout->id,
                 'exercise_id' => $workout->exercise_id,
+                'exercise_description' => $workout->description,
                 'repetitions' => $workout->repetitions,
                 'weight' => $workout->weight,
                 'break_time' => $workout->break_time,
