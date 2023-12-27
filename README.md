@@ -99,11 +99,12 @@ Request JSON exemplo
 
 Request JSON exemplo
 
->{  
+```http
+{  
   "token": "22|nB5FBfqzpRCraff4jCW8uwzyK6kSsW3u4ruEtCJfbb33f932",
   "name": "Carmen Oliveira"
 }
-
+```
 
    | Response Status | Descrição| 
 | --- | :--- |
