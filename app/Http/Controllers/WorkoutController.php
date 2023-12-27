@@ -17,70 +17,12 @@ class WorkoutController extends Controller
         try {
             $user = Auth::user();
 
-            //pega os dados que foram enviados via query
-            $filters = $request->query();
-
-            //inicializa uma query
-            $workouts = Workout::query();
-
-            // Verifica o filtro do student_id
-            if ($request->has('student_id') && !empty($filters['student_id'])) { // mostra todos os estudantes por id asi no body eu nao coloque nada
-                $workouts->where('student_id', $filters['student_id']);  //filtra a tabela workouts por student_id        
-            }
-
-            // Obter os resultados ordenados por día da semana
-            $workouts = $workouts->orderBy('day')->get();
-
-            // Verifica sim se encontraron workouts para el student_id 
-            if ($request->has('student_id') && !empty($filters['student_id']) && $workouts->isEmpty()) {
-                return $this->error('Id. não existe!.Não existen treinos para o student_id proporcionado.', Response::HTTP_BAD_REQUEST);
-            }
-
-            // Inicia o array de resultados
-            $results = [];
-
-            foreach ($workouts as $workout) {
-                $day = strtoupper($workout->day); // Asegura que o dia esté em mayúsculas
-                $exercise_id = $workout->exercise_id;
-                $exercise_description = $workout->exercise->description;
-                $repetitions = $workout->repetitions;
-                $weight = $workout->weight;
-                $break_time = $workout->break_time;
-                $observations = $workout->observations;
-                $time = $workout->time;
-
-                // Response, workout por dia
-                $results[$day][] = [
-                    'exercise_id' => $exercise_id,
-                    'exercise_description' => $exercise_description,
-                    'repetitions' => $repetitions,
-                    'weight' => $weight,
-                    'break_time' => $break_time,
-                    'observations' => $observations,
-                    'time' => $time,
-                ];
-            }
-
-            // Ordena os resultados por dias de la semana
-            $orderedDays = ['SEGUNDA', 'TERCA', 'QUARTA', 'QUINTA', 'SEXTA', 'SÁBADO', 'DOMINGO'];
-            $finalResults = [];
-
-            foreach ($orderedDays as $day) {
-                // Verifica sim hay dados para o día actual
-                if (isset($results[$day])) {
-                    // Agrega os dados ao novo array $finalResults
-                    $finalResults[$day] = $results[$day];
-                }
-            }
-
-            // Array final
-            $finalResponse = [
-                'student_id' => isset($workouts[0]) ? $workouts[0]->student->id : null,
-                'student_name' => isset($workouts[0]) ? $workouts[0]->student->name : null,
-                'workouts' => $finalResults,
-            ];
-
-            return $finalResponse;
+            $workouts = Workout::where('user_id', $user->id)
+                ->orderBy('created_at')
+                ->get()
+                ;
+                
+            return $workouts;
         } catch (Exception $exception) {
             return $this->error($exception->getMessage(), Response::HTTP_BAD_REQUEST);
         }

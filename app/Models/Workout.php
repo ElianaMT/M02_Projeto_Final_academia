@@ -18,11 +18,12 @@ class Workout extends Model
         'time',
         'user_id', 
         'exercise_id',
-        'student_id'
+        'student_id',
+        'created_at'
                 
     ];
     
-    protected $hidden = ['created_at','updated_at'];
+    protected $hidden = ['updated_at'];
 
     //Relações para listar treinos
 
