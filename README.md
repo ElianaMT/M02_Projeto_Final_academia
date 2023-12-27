@@ -13,7 +13,7 @@ Esta API permite de forma intuitiva e dinâmica cadastrar, listar e gerenciar us
 - [Funcionalidades do Projeto](#funcionalidades)
 - [Documentação da API](#layout)
 - [Demostratração](#demostracao)
-- [Técnicas e padrões utilizadas?](#tecnicas)
+- [Técnicas e padrões utilizadas](#tecnicas)
 - [Como rodar este projeto?](#rodar)
 - [Technologias Utilizadas](#technologias)
 - [Autora](#autora)
@@ -67,8 +67,8 @@ Esta API permite de forma intuitiva e dinâmica cadastrar, listar e gerenciar us
 | `plan_id` | `string`|**Obrigatório** . Chave estrangeira |
 
 Request JSON exemplo
-
->{
+```http
+{
   "name": "Carmen Oliveira",
   "email": "aoliveira@gmail.com",
   "date_birth": "1980-05-22",
@@ -76,6 +76,7 @@ Request JSON exemplo
   "password": "$2y$12$FsgW2zj2kUlEgDtrQGQg3eAoKFVuCm5ZJXXwcnXtN2cg62pbsLr5G",
   "plan_id": 1
 }  
+```
 
    | Response Status | Descrição| 
 | --- | :--- |
@@ -128,12 +129,12 @@ Request JSON exemplo
 | `remaining_estudents` | `int`|**Obrigatório** . Quantidade de cadastros restantes de estudantes |
 
 Request JSON exemplo
-
->{  
+```http
+{  
   "token": "22|nB5FBfqzpRCraff4jCW8uwzyK6kSsW3u4ruEtCJfbb33f932",
   "name": "Carmen Oliveira"
 }
-  
+ ``` 
 
    | Response Status | Descrição| 
 | --- | :--- |
@@ -155,12 +156,13 @@ Request JSON exemplo
 | `user_id` | `int`|**Obrigatório** . Chave estrangeira do usúario. Id do usuário que cadastrou o exercício |
 
 Request JSON exemplo
-
->  {
+```http
+{
   "description": "Supino reto",
   "user_id": 17,
   "id": 5
 } 
+```
 
 
    | Response Status | Descrição| 
@@ -181,7 +183,8 @@ Request JSON exemplo
 >Não é necessario resquest body
 
 Exemplo de resposta:
->  [
+```http
+[
   {
     "id": 8,
     "description": "Abdominal solo"
@@ -211,7 +214,7 @@ Exemplo de resposta:
     "description": "Tríceps Máquina"
   }
 ]
-
+```
 
    | Response Status | Descrição| 
 | --- | :--- |
@@ -267,7 +270,8 @@ Request exemplo: `/api/exercises/10`
 
 Request JSON exemplo
 
->{
+```http
+{
   "name": "Emilia Cardoso",
   "email": "emicardo@gmail.com",
   "date_birth": "2000-01-24",
@@ -282,6 +286,7 @@ Request JSON exemplo
   "number": "113",
   "id": 9
 }
+```
 </p>
 
 >**Middleware** de verificação de limite de cadastro de estudante de acordo com o plano do usuário
@@ -311,8 +316,8 @@ Request JSON exemplo
 
 Request exemplo: `/api/students`.Ordenado pelo nome do estudante.
 
-
->[
+```http
+[
   {
     "id": 16,
     "name": "Daniel Navalny",
@@ -359,7 +364,7 @@ Request exemplo: `/api/students`.Ordenado pelo nome do estudante.
     "number": "113"
   } 
 ]
-
+```
 
    | Response Status | Descrição| 
 | --- | :--- |
@@ -412,10 +417,12 @@ Request exemplo: `/api/students/14`
 Request JSON exemplo
 > `HTTP PUT /api/students/15`
 
->{
+```http
+{
    "date_birth":"1987-06-28",
   "contact":"11 845698345"
 }
+```
 </p>
 
 
@@ -447,7 +454,8 @@ Request JSON exemplo
 
 Request JSON exemplo
 
->  {
+```http
+{
   "workout": {
     "student_id": 9,
     "exercise_id": 6,
@@ -460,7 +468,8 @@ Request JSON exemplo
     "user_id": 17,
     "id": 22
   }
-} 
+}
+``` 
 
 
    | Response Status | Descrição| 
@@ -481,8 +490,8 @@ Request JSON exemplo
 
 Request exemplo: `/api/workouts?student_id=9`.Com a lista de treinos do estudante separado por dia da semana e ordenado pelo created_at do registro.
 
-
->{
+```http
+{
   "student_id": 9,
   "student_name": "Emilia Cardoso",
   "workouts": {
@@ -568,6 +577,7 @@ Request exemplo: `/api/workouts?student_id=9`.Com a lista de treinos do estudant
     ]
   }
 }
+```
 
    | Response Status | Descrição| 
 | --- | :--- |
@@ -583,8 +593,8 @@ Request exemplo: `/api/workouts?student_id=9`.Com a lista de treinos do estudant
 
 Request exemplo: **/api/students/9**
 
-
->{
+```http
+{
   "id": "9",
   "name": "Emilia Cardoso",
   "email": "emicardo@gmail.com",
@@ -600,6 +610,7 @@ Request exemplo: **/api/students/9**
     "number": "113"
   }
 }
+```
 
    | Response Status | Descrição| 
 | --- | :--- |
