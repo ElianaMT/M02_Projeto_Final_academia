@@ -23,14 +23,20 @@ Esta API permite de forma intuitiva e dinâmica cadastrar, listar e gerenciar us
 <a name="funcionalidades"></a>
 ## Funcionalidades do Projeto
 
-- [x] Cadastro Usuario
-- [x] Login
-- [x] Dashboard	
-- [x] Gerenciamento de Exercicios
-- [x] Gerenciamento do Alunos
-- [x] Cadastro Novo Aluno
-- [x] Cadastro Treino
-- [x] Visualização Treinos
+- [x] S01 - Cadastro de usuário
+- [x] S02 - Login
+- [x] S03 -  Dashboard
+- [x] S04 - Cadastro de exercícios
+- [x] S05 - Listagem de exercícios
+- [x] S06 - Deleção de exercícios
+- [x] S07 - Cadastro de estudante
+- [x] S08 - Listagem de estudantes
+- [x] S09 - Deleção de estudante (Soft Delete)
+- [x] S10 - Atualização de estudante 
+- [x] S11- Cadastro de treinos
+- [x] S12 - Listagem de treinos do estudante
+- [x] S13 - Listagem de um estudante
+- [x] S14 - Exportação de PDF
 
 <a name="layout"></a>
 ## Documentação da API
@@ -38,8 +44,6 @@ Esta API permite de forma intuitiva e dinâmica cadastrar, listar e gerenciar us
 ### Endpoints - Rotas 
 
 ####  S01 - Cadastro Usuario
-
-
 
 > `Layout do email`   
 <p align="center">
@@ -617,6 +621,12 @@ Request exemplo: **/api/students/treino?id=9**
 | --- | :--- |
 | `200` | sucesso
 
+<a name="demostracao"></a>
+## Demostratração
+
+[Assista ao vídeo](https://youtu.be/ufBJTcmtrPU)
+
+
 <a name="tecnicas"></a>
 ## Técnicas e padrões utilizadas
 
@@ -689,3 +699,8 @@ $ php artisan db:seed PopulatePlans
 </p>
 
 [Linkedin](https://www.linkedin.com/in/eliana-morillo-t-48888569/)
+
+<a name="passos"></a>
+## Proximos passos
+- [ ] Reemplazar id por nome do aluno na tela da visualização de treinos
+- [ ] Implementar um metodo para atualizar a tela gerenciamento de exercícios.
