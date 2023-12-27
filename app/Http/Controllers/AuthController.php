@@ -36,11 +36,10 @@ class AuthController extends Controller
             
             $token = $request->user()->createToken('simple');
 
-            return $this->response('Autorizado', 200, [
-                'token' => $token->plainTextToken, 
-                'name' => $request->user()->name, // Adiciona o nome de usuario na resposta            
-                'expiration_token' => "1 dia"
-            ]);
+            return response()->json([
+                'token' => $token->plainTextToken,
+                'name' => $request->user()->name,
+            ], 200);
             
         } catch (\Exception $exception) {
             return $this->error($exception->getMessage(), Response::HTTP_BAD_REQUEST);
