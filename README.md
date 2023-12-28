@@ -489,7 +489,7 @@ Request JSON exemplo
 </p>
 
 
-Request exemplo: `/api/students/8/workouts`.Com a lista de treinos do estudante separado por dia da semana e ordenado pelo created_at do registro.
+Request exemplo: `/api/students/9/workouts`.Com a lista de treinos do estudante separado por dia da semana e ordenado pelo created_at do registro.
 
 ```http
 {
@@ -540,7 +540,7 @@ Request exemplo: `/api/students/8/workouts`.Com a lista de treinos do estudante 
 </p>
 
 
-Request exemplo: **/api/students/9**
+Request exemplo: `/api/students/9`
 
 ```http
 {
@@ -573,7 +573,7 @@ Request exemplo: **/api/students/9**
 </p>
 
 
-Request exemplo: **/api/students/treino?id=9**
+Request exemplo: `/api/students/treino?id=9`
 
 
 
@@ -602,7 +602,7 @@ O projeto foi dividido em uma estruturas de pastas para organizar os models, con
 | /src/database| Contém todas as migrations da aplicação  |
 
 ### Modelagem da base de dados PostgreSQL
->Foi utilizado o app https://dbdiagram.io/ para modelagem previa da base postgres.
+>Foi utilizado o app https://dbdiagram.io/ para modelagem previa da base postgresql.
 
 ### Acesse a documentação do modelo
 >https://dbdiagram.io/d/Academia-656e948556d8064ca06225ee
@@ -662,5 +662,5 @@ $ php artisan db:seed PopulatePlans
 
 <a name="passos"></a>
 ## Proximos passos
-- [ ] Reemplazar id por nome do aluno na tela da visualização de treinos
-- [ ] Implementar um metodo para atualizar a tela gerenciamento de exercícios.
+- [ ] Melhorar o HTML, tanto PDF quanto email, aumenta o logotipo da empresa.
+- [ ] Implementar o envio de treinos por WhatsApp para os alunos.
