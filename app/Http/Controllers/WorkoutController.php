@@ -12,32 +12,6 @@ use Symfony\Component\HttpFoundation\Response;
 class WorkoutController extends Controller
 {
 
-
-    public function index(Request $request)
-    {
-        try {
-            $user = Auth::user();
-    
-            // Obter o student_id pasapo por URL
-            $studentId = $request->input('student_id');
-    
-            $workouts = Workout::where('user_id', $user->id)
-                ->orderBy('created_at')
-                ->get();
-    
-            // Filtra por student_id 
-            $filteredWorkouts = $workouts->filter(function ($workout) use ($studentId) {
-                return $studentId ? $workout->student_id == $studentId : true;
-            });
-    
-            return $filteredWorkouts;
-        } catch (Exception $exception) {
-            return $this->error($exception->getMessage(), Response::HTTP_BAD_REQUEST);
-        }
-    }
-    
-
-
     public function store(Request $request)
     {
         try {
