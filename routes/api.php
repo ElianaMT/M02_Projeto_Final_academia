@@ -24,7 +24,6 @@ Route:: put('students/{id}', [StudentController::class,'update']);
 Route::get('students/{id}/workouts', [StudentController::class, 'getWorkouts']);
 
 Route::post('workouts', [WorkoutController::class, 'store']);
-Route::get('workouts', [WorkoutController::class, 'index']);
 
 Route::get('dashboard', [UserController::class, 'index']);
 
