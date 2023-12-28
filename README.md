@@ -485,11 +485,11 @@ Request JSON exemplo
 
 > `HTTP GET /api/students/:id/workouts` 
 <p align="center">
-<img alt="imagen delecao_exercicios" width="300" src="public/images/S08 - Listagem de estudantes-pesquisa_geral.png">
+<img alt="imagen delecao_exercicios" width="300" src="public/images/S12 - Listagem de treinos do estudante.png">
 </p>
 
 
-Request exemplo: `/api/workouts?student_id=9`.Com a lista de treinos do estudante separado por dia da semana e ordenado pelo created_at do registro.
+Request exemplo: `/api/students/8/workouts`.Com a lista de treinos do estudante separado por dia da semana e ordenado pelo created_at do registro.
 
 ```http
 {
@@ -498,67 +498,16 @@ Request exemplo: `/api/workouts?student_id=9`.Com a lista de treinos do estudant
   "workouts": {
     "QUARTA": [
       {
-        "exercise_id": 7,
-        "exercise_description": "Agachamento",
-        "repetitions": 12,
-        "weight": "20.23",
-        "break_time": 1,
-        "observations": "....................",
-        "time": 3
-      },
-      {
-        "exercise_id": 8,
         "exercise_description": "Abdominal solo",
         "repetitions": 12,
         "weight": "20.23",
         "break_time": 1,
         "observations": "Priorizar os exercícios multiarticulares.",
-        "time": 3
-      },
-      {
-        "exercise_id": 5,
-        "exercise_description": "Supino reto",
-        "repetitions": 12,
-        "weight": "20.23",
-        "break_time": 1,
-        "observations": "....................",
-        "time": 3
-      },
-      {
-        "exercise_id": 6,
-        "exercise_description": "Tríceps Máquina",
-        "repetitions": 12,
-        "weight": "20.23",
-        "break_time": 1,
-        "observations": "....................",
-        "time": 3
-      }
-    ],
-    "SEXTA": [
-      {
-        "exercise_id": 6,
-        "exercise_description": "Tríceps Máquina",
-        "repetitions": 12,
-        "weight": "20.23",
-        "break_time": 1,
-        "observations": "Trabalhar a coordenação motora",
-        "time": 3
-      }
-    ],
-    "SÁBADO": [
-      {
-        "exercise_id": 6,
-        "exercise_description": "Tríceps Máquina",
-        "repetitions": 12,
-        "weight": "20.23",
-        "break_time": 1,
-        "observations": "Trabalhar a coordenação motora",
         "time": 3
       }
     ],
     "DOMINGO": [
       {
-        "exercise_id": 8,
         "exercise_description": "Abdominal solo",
         "repetitions": 12,
         "weight": "20.23",
@@ -567,7 +516,6 @@ Request exemplo: `/api/workouts?student_id=9`.Com a lista de treinos do estudant
         "time": 3
       },
       {
-        "exercise_id": 6,
         "exercise_description": "Tríceps Máquina",
         "repetitions": 12,
         "weight": "20.23",
