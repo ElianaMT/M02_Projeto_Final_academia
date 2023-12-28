@@ -587,7 +587,7 @@ Request exemplo: `/api/students/treino?id=9`
 
 ## Demostratração
 
-[Assista ao vídeo](https://youtu.be/ufBJTcmtrPU)
+[Assista ao vídeo](https://youtu.be/-zopfN3ghwo)
 
 <a name="tecnicas"></a>
 
