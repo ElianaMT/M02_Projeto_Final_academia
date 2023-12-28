@@ -13,28 +13,53 @@ class StudentController extends Controller
     public function getWorkouts($id)
     {
         try {
+            // Obtenho usuario autenticado
             $user = Auth::user();
 
-            // Validar que el user_id coincida con el creador de los entrenamientos
+            // Valida que user_id corresponde a quem criou os treinos
             $student = Student::where('user_id', $user->id)->findOrFail($id);
-            $workouts = $student->workouts; 
+            $filteredWorkouts = $student->workouts;
 
-            return response()->json([
+            // Ordena os treinos por created_at
+            $filteredWorkouts = $filteredWorkouts->sortBy('created_at');
+
+            $results = [
                 'student_id' => $student->id,
                 'student_name' => $student->name,
-                'workouts' => $workouts,
-            ]);
+                'workouts' => [],
+            ];
+
+            foreach ($filteredWorkouts as $workout) {
+                $day = strtoupper($workout->day);
+
+                // Obtenho detalhes do exercicios
+                $exerciseDescription = $workout->exercise->description;
+                $repetitions = $workout->repetitions;
+                $weight = $workout->weight;
+                $breakTime = $workout->break_time;
+                $observations = $workout->observations;
+                $time = $workout->time;
+
+                 // Agrupo os exercícios por día da semana
+                if (!isset($results['workouts'][$day])) {
+                    $results['workouts'][$day] = [];
+                }
+
+                $results['workouts'][$day][] = [
+                    'exercise_description' => $exerciseDescription,
+                    'repetitions' => $repetitions,
+                    'weight' => $weight,
+                    'break_time' => $breakTime,
+                    'observations' => $observations,
+                    'time' => $time,
+                ];
+            }
+
+            return response()->json($results);
         } catch (Exception $exception) {
-            return response()->json([
-                'message' => $exception->getMessage(),
-                'status' => 400,
-                'errors' => [],
-                'data' => [],
-            ], 400);
+            return $this->error($exception->getMessage(), Response::HTTP_BAD_REQUEST);
         }
     }
-
-
 
     public function show($id)
     {
