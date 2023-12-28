@@ -10,6 +10,31 @@ use Symfony\Component\HttpFoundation\Response;
 
 class StudentController extends Controller
 {
+    public function getWorkouts($id)
+    {
+        try {
+            $user = Auth::user();
+
+            // Validar que el user_id coincida con el creador de los entrenamientos
+            $student = Student::where('user_id', $user->id)->findOrFail($id);
+            $workouts = $student->workouts; 
+
+            return response()->json([
+                'student_id' => $student->id,
+                'student_name' => $student->name,
+                'workouts' => $workouts,
+            ]);
+        } catch (Exception $exception) {
+            return response()->json([
+                'message' => $exception->getMessage(),
+                'status' => 400,
+                'errors' => [],
+                'data' => [],
+            ], 400);
+        }
+    }
+
+
 
     public function show($id)
     {
